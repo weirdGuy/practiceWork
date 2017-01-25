@@ -1,28 +1,28 @@
 package io.weirdguy.practice;
 
 import java.lang.reflect.Array;
+import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by laiko on 25.01.2017.
  */
-public class StudentsGrades {
+public class StudentsGrades implements StudentsGradesGeneric<Integer> {
 
     private int[] marks;
-    private int[] buffArr;
 
-    private double maxGrade = 0;
-    private double minGrade = 0;
+    private Integer maxGrade = 0;
+    private Integer minGrade = 0;
 
-    private double avarageGrade = 0;
+    private Integer avarageGrade = 0;
 
     private int exceStud = 0;
     private int wellStud = 0;
     private int goodStud = 0;
 
-    private int allMarks = 0;
-    private double allMarksSum = 0;
+    private Integer allMarks = 0;
+    private Integer allMarksSum = 0;
     private int emptySpace = 0;
 
 
@@ -48,8 +48,7 @@ public class StudentsGrades {
         //log(marks[3]);
     }
 
-
-    public void addGrade(int grade) {
+    public void addGrade(Integer grade) {
         if(grade >= 0 && grade <= 100) {
             if (emptySpace == 0) {
                 emptySpace = 5;
@@ -71,19 +70,19 @@ public class StudentsGrades {
 
     }
 
-    public double getMaxGrade() {
+    public Integer getMaxGrade() {
         return this.maxGrade;
     }
 
-    public double getMinGrade() {
+    public Integer getMinGrade() {
         return this.minGrade;
     }
 
-    public double getAvarageGrade() {
+    public Integer getAvarageGrade() {
         return this.avarageGrade;
     }
 
-    public int getUpAvarage() {
+    public Integer getUpAvarage() {
         int count = 0;
         for (int mark :
                 marks) {
@@ -92,7 +91,7 @@ public class StudentsGrades {
         return count;
     }
 
-    public int getLowAvarage() {
+    public Integer getLowAvarage() {
         int count = 0;
         for (int mark :
                 marks) {
@@ -124,12 +123,12 @@ public class StudentsGrades {
         return s + "]";
     }
 
-    private void checkMinMax(int i) {
+    private void checkMinMax(Integer i) {
         if(i > maxGrade) maxGrade = i;
         if(i < minGrade) minGrade = i;
     }
 
-    private void addStud(int i) {
+    private void addStud(Integer i) {
         if(i >= 91 && i <= 100) {
             exceStud++;
         } else if(i >= 71 && i <= 90) {
