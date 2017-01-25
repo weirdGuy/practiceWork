@@ -22,7 +22,7 @@ public class StudentsGrades {
     private int goodStud = 0;
 
     private int allMarks = 0;
-    private int allMarksSum = 0;
+    private double allMarksSum = 0;
     private int emptySpace = 0;
 
 
@@ -44,30 +44,89 @@ public class StudentsGrades {
         }
 
         avarageGrade = allMarksSum / allMarks;
-        logArr(marks);
-        log("--");
-        logArr(_marks);
-        log("--");
         //log(avarageGrade);
         //log(marks[3]);
     }
 
 
     public void addGrade(int grade) {
-        if(emptySpace > 0) {
-            // TODO
-        } else {
-            logArr(marks);
-            emptySpace = marks.length * 2;
-            marks = Arrays.copyOf(marks, marks.length + emptySpace); //new int[marks.length + emptySpace];
-            //System.arraycopy(marks, 0, buffArr, 0, marks.length);
-            //marks = buffArr;
-            /*for(int i = marks.length - emptySpace - 1; i < marks.length; i++) {
-                marks[i] = -1;
+        if(grade >= 0 && grade <= 100) {
+            if (emptySpace == 0) {
+                emptySpace = 5;
+                marks = Arrays.copyOf(marks, marks.length + emptySpace); //new int[marks.length + emptySpace];
+                //System.arraycopy(marks, 0, buffArr, 0, marks.length);
+                //marks = buffArr;
+                for (int i = marks.length - emptySpace; i < marks.length; i++) {
+                    marks[i] = -1;
+                }
             }
-            logArr(marks);*/
-
+            marks[marks.length - emptySpace] = grade;
+            emptySpace--;
+            checkMinMax(grade);
+            addStud(grade);
+            allMarks++;
+            allMarksSum += grade;
+            avarageGrade = allMarksSum / allMarks;
         }
+
+    }
+
+    public double getMaxGrade() {
+        return this.maxGrade;
+    }
+
+    public double getMinGrade() {
+        return this.minGrade;
+    }
+
+    public double getAvarageGrade() {
+        return this.avarageGrade;
+    }
+
+    public int getUpAvarage() {
+        int count = 0;
+        for (int mark :
+                marks) {
+            if(mark > avarageGrade) count++;
+        }
+        return count;
+    }
+
+    public int getLowAvarage() {
+        int count = 0;
+        for (int mark :
+                marks) {
+            if(mark < avarageGrade) count++;
+        }
+        return count;
+    }
+
+    public int getExceStud() {
+        return this.exceStud;
+    }
+
+    public int getWellStud() {
+        return this.wellStud;
+    }
+
+    public int getGoodStud() {
+        return this.goodStud;
+    }
+
+    public String getAllMarks() {
+        String s = "[";
+        for(int i = 0; i < marks.length; i++) {
+            if(marks[i] != -1) {
+                if (marks.length - i - emptySpace - 1 == 0) s += marks[i];
+                else s += marks[i] + ", ";
+            }
+        }
+        return s + "]";
+    }
+
+    private void checkMinMax(int i) {
+        if(i > maxGrade) maxGrade = i;
+        if(i < minGrade) minGrade = i;
     }
 
     private void addStud(int i) {
