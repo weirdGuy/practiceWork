@@ -13,10 +13,6 @@ public interface StudentsGradesGeneric<T extends Number> {
 
     T getAvarageGrade();
 
-    T getUpAvarage();
-
-    T getLowAvarage();
-
     String getAllMarks();
 
 }
