@@ -11,7 +11,7 @@ public interface StudentsGradesGeneric<T extends Number> {
 
     T getMinGrade();
 
-    T getAvarageGrade();
+    double getAvarageGrade();
 
     String getAllMarks();
 
