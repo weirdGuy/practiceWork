@@ -5,16 +5,16 @@ import java.util.Objects;
 public class Main {
 
     public static void main(String[] args) {
-        int[] test = new int[]{60, 50, 70};
-        StudentsGrades stud = new StudentsGrades(test);
-        stud.addGrade(1);
-        stud.addGrade(60);
-        stud.addGrade(60);
-        stud.addGrade(60);
-        stud.addGrade(60);
-        stud.addGrade(60);
-        stud.addGrade(20);
-        stud.addGrade(1);
+        double[] test = new double[]{60.0, 50.0, 70.0};
+        StudentGradesDouble stud = new StudentGradesDouble(test);
+        stud.addGrade(1.0);
+        stud.addGrade(60.0);
+        stud.addGrade(60.5);
+        stud.addGrade(60.0);
+        stud.addGrade(60.5);
+        stud.addGrade(60.0);
+        stud.addGrade(20.0);
+        stud.addGrade(1.0);
         log("All marks: " + stud.getAllMarks());
         log("Avarage grade: " + stud.getAvarageGrade());
         log("Excelent stud: " + stud.getExceStud());

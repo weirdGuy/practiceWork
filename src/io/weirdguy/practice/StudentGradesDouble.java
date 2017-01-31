@@ -1,33 +1,31 @@
 package io.weirdguy.practice;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.Type;
 import java.util.Arrays;
-import java.util.List;
 
 /**
- * Created by laiko on 25.01.2017.
+ * io.weirdguy.practice by laiko in practiceWork
+ * Created on 29.01.2017
  */
-public class StudentsGrades implements StudentsGradesGeneric<Integer> {
+public class StudentGradesDouble implements StudentsGradesGeneric<Double> {
 
-    private Integer[] marks;
 
-    private Integer maxGrade = 0;
-    private Integer minGrade = 0;
+    private Double[] marks;
 
-    private Integer avarageGrade = 0;
+    private Double maxGrade = 0.0;
+    private Double minGrade = 0.0;
+
+    private Double avarageGrade = 0.0;
 
     private int exceStud = 0;
     private int wellStud = 0;
     private int goodStud = 0;
 
-    private Integer allMarks = 0;
-    private Integer allMarksSum = 0;
+    private Double allMarks = 0.0;
+    private Double allMarksSum = 0.0;
     private int emptySpace = 0;
 
-
-    public StudentsGrades(int[] _marks) {
-        this.marks = Arrays.stream(_marks).boxed().toArray(Integer[]::new);
+    public StudentGradesDouble(double[] _marks) {
+        this.marks = Arrays.stream(_marks).boxed().toArray(Double[]::new);
         for(int i = 0; i < this.marks.length; i++) {
             if(marks[i] >= 0 && marks[i] <= 100) {
                 allMarks++;
@@ -48,15 +46,16 @@ public class StudentsGrades implements StudentsGradesGeneric<Integer> {
         //log(marks[3]);
     }
 
-    public void addGrade(Integer grade) {
-        if(grade.compareTo(0) > 0 && grade.compareTo(100) < 0) {
+    @Override
+    public void addGrade(Double grade) {
+        if(grade.compareTo(0.0) > 0 && grade.compareTo(100.0) < 0) {
             if (emptySpace == 0) {
                 emptySpace = 5;
                 marks = Arrays.copyOf(marks, marks.length + emptySpace); //new int[marks.length + emptySpace];
                 //System.arraycopy(marks, 0, buffArr, 0, marks.length);
                 //marks = buffArr;
                 for (int i = marks.length - emptySpace; i < marks.length; i++) {
-                    marks[i] = -1;
+                    marks[i] = -1.0;
                 }
             }
             marks[marks.length - emptySpace] = grade;
@@ -67,24 +66,26 @@ public class StudentsGrades implements StudentsGradesGeneric<Integer> {
             allMarksSum += grade;
             avarageGrade = allMarksSum / allMarks;
         }
-
     }
 
-    public Integer getMaxGrade() {
+    @Override
+    public Double getMaxGrade() {
         return this.maxGrade;
     }
 
-    public Integer getMinGrade() {
+    @Override
+    public Double getMinGrade() {
         return this.minGrade;
     }
 
-    public Integer getAvarageGrade() {
+    @Override
+    public Double getAvarageGrade() {
         return this.avarageGrade;
     }
 
     public int getUpAvarage() {
         int count = 0;
-        for (int mark :
+        for (Double mark :
                 marks) {
             if(mark > avarageGrade) count++;
         }
@@ -93,11 +94,33 @@ public class StudentsGrades implements StudentsGradesGeneric<Integer> {
 
     public int getLowAvarage() {
         int count = 0;
-        for (int mark :
+        for (Double mark :
                 marks) {
             if(mark < avarageGrade) count++;
         }
         return count;
+    }
+
+    @Override
+    public String getAllMarks() {
+        String s = "[";
+        for(int i = 0; i < marks.length; i++) {
+            if(marks[i] != -1) {
+                if (marks.length - i - emptySpace - 1 == 0) s += marks[i];
+                else s += marks[i] + ", ";
+            }
+        }
+        return s + "]";
+    }
+
+    private void addStud(Double i) {
+        if(i >= 91 && i <= 100) {
+            exceStud++;
+        } else if(i >= 71 && i <= 90) {
+            wellStud++;
+        } else if(i >= 60 && i <= 70) {
+            goodStud++;
+        }
     }
 
     public int getExceStud() {
@@ -112,41 +135,8 @@ public class StudentsGrades implements StudentsGradesGeneric<Integer> {
         return this.goodStud;
     }
 
-    public String getAllMarks() {
-        String s = "[";
-        for(int i = 0; i < marks.length; i++) {
-            if(marks[i] != -1) {
-                if (marks.length - i - emptySpace - 1 == 0) s += marks[i];
-                else s += marks[i] + ", ";
-            }
-        }
-        return s + "]";
-    }
-
-    private void checkMinMax(Integer i) {
+    private void checkMinMax(Double i) {
         if(i > maxGrade) maxGrade = i;
         if(i < minGrade) minGrade = i;
     }
-
-    private void addStud(Integer i) {
-        if(i >= 91 && i <= 100) {
-            exceStud++;
-        } else if(i >= 71 && i <= 90) {
-            wellStud++;
-        } else if(i >= 60 && i <= 70) {
-            goodStud++;
-        }
-    }
-
-
-    private void log(Object obj) {
-        System.out.println(obj);
-    }
-
-    private void logArr(int[] obj) {
-        for(int i = 0; i < obj.length; i++) {
-            log(obj[i]);
-        }
-    }
-
 }
