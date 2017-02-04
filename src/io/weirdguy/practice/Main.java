@@ -1,30 +1,36 @@
 package io.weirdguy.practice;
 
+import java.util.Arrays;
+import java.util.Random;
+
 public class Main {
 
     public static void main(String[] args) {
-        int[] test = new int[]{60, 50, 70};
-        StudentsGrades stud = new StudentsGrades(test);
-        stud.addGrade(1);
-        stud.addGrade(60);
-        stud.addGrade(60);
-        stud.addGrade(60);
-        stud.addGrade(60);
-        stud.addGrade(60);
-        stud.addGrade(20);
-        stud.addGrade(1);
-        log("All marks: " + stud.getAllMarks());
-        log("Avarage grade: " + stud.getAvarageGrade());
-        log("Excelent stud: " + stud.getExceStud());
-        log("Good stud: " + stud.getGoodStud());
-        log("Well stud: " + stud.getWellStud());
-        log("Max grade: " + stud.getMaxGrade());
-        log("Min grade: " + stud.getMinGrade());
-        log("Up avarage: " + stud.getUpAvarage());
-        log("Low avarage: " + stud.getLowAvarage());
+
+        Item[] items = new Item[10];
+
+        Random rn = new Random();
+        int n = 100 - 1 + 1;
+
+        for(int i = 0; i < items.length; i++) {
+            items[i] = new Item(rn.nextInt() % n, rn.nextInt() % n, "hi");
+        }
+
+        log(Arrays.toString(items));
+
+        Sorter.bubbleSort(items, Item.BY_WEIGHT);
+
+        log(Arrays.toString(items));
+
+
     }
 
     private static void log(Object obj) {
         System.out.println(obj);
+    }
+    private static void logArr(Object[] objects) {
+        for(int i = 0; i < objects.length; i++) {
+            log(objects[i]);
+        }
     }
 }
