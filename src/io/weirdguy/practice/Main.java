@@ -13,12 +13,12 @@ public class Main {
         int n = 100 - 1 + 1;
 
         for(int i = 0; i < items.length; i++) {
-            items[i] = new Item(rn.nextInt() % n, rn.nextInt() % n, "hi");
+            items[i] = new Item(rn.nextInt() % n, rn.nextInt() % n, rn.nextInt() % n);
         }
 
         log(Arrays.toString(items));
 
-        Sorter.bubbleSort(items, Item.BY_WEIGHT);
+        Sorter.shellSort(items);
 
         log(Arrays.toString(items));
 

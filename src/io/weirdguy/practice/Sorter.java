@@ -60,9 +60,32 @@ public class Sorter {
         }
     }
 
+    public static <T> void selectionSort(Comparable<T>[] a, Comparator<T> comparator) {
+        for(int i = 0; i < a.length; i++) {
+
+            int minIndex = i;
+
+            for(int j = i + 1; j < a.length; j++) {
+                if(comparator.compare((T) a[j], (T) a[minIndex]) < 0) {
+                    minIndex = j;
+                }
+            }
+
+            exch(a, i, minIndex);
+        }
+    }
+
     public static <T> void insertionSort(Comparable<T>[] a) {
         for(int i = 1; i < a.length; i++) {
             for(int j = i; j > 0 && a[j].compareTo((T) a[j - 1]) < 0; j--) {
+                exch(a, j, j - 1);
+            }
+        }
+    }
+
+    public static <T> void insertionSort(Comparable<T>[] a, Comparator<T> comparator) {
+        for(int i = 1; i < a.length; i++) {
+            for(int j = i; j > 0 && comparator.compare((T) a[j], (T)a[j - 1]) < 0; j--) {
                 exch(a, j, j - 1);
             }
         }
@@ -85,6 +108,23 @@ public class Sorter {
         }
     }
 
+    public static <T> void combSort(Comparable<T>[] a, Comparator<T> comparator) {
+        int gap = a.length;
+        boolean swapped = true;
+        while (gap > 1 || swapped) {
+            if (gap > 1) {
+                gap = (int) (gap / 1.3);
+            }
+            swapped = false;
+            for (int i = 0; i + gap < a.length; i++) {
+                if (comparator.compare((T) a[i], (T)a[i + gap]) > 0) {
+                    exch(a, i, i + gap);
+                    swapped = true;
+                }
+            }
+        }
+    }
+
     public static <T> void shellSort(Comparable<T>[] a) {
         int increment = a.length / 2;
         while (increment > 0) {
@@ -92,7 +132,7 @@ public class Sorter {
                 int j = i;
                 Comparable<T> temp = a[i];
                 while (j >= increment && a[j - increment].compareTo((T) temp) > 0) {
-                    a[j] = a[j - increment];
+                    exch(a, j, j - increment);
                     j = j - increment;
                 }
                 a[j] = temp;
@@ -100,7 +140,26 @@ public class Sorter {
             if (increment == 2) {
                 increment = 1;
             } else {
-                increment *= (5.0 / 11);
+                increment *= (4.0 / 9);
+            }
+        }
+    }
+
+    public static <T> void shellSort(Comparable<T>[] a, Comparator<T> comparator) {
+        int increment = a.length / 2;
+        while (increment > 0) {
+            for (int i = increment; i < a.length; i++) {
+                int j = i;
+                while (j >= increment && comparator.compare((T) a[j - increment], (T) a[i]) > 0) {
+                    exch(a, j, j - increment);
+                    j = j - increment;
+                }
+                a[j] = a[i];
+            }
+            if (increment == 2) {
+                increment = 1;
+            } else {
+                increment *= (4.0 / 9);
             }
         }
     }

@@ -10,12 +10,12 @@ public class Item implements Comparable<Item>{
 
     private int size;
     private int weight;
-    private String color;
+    private int color;
 
     public static final Comparator<Item> BY_WEIGHT = new ByWeight();
     public static final Comparator<Item> BY_COLOR = new ByColor();
 
-    public Item(int size, int weight, String color) {
+    public Item(int size, int weight, int color) {
 
         this.size = size;
         this.weight = weight;
@@ -30,7 +30,7 @@ public class Item implements Comparable<Item>{
 
     @Override
     public String toString() {
-        return "{ " + weight + " }";
+        return "{ " + size + " }";
     }
 
     private static class ByWeight implements Comparator<Item> {
@@ -44,7 +44,7 @@ public class Item implements Comparable<Item>{
     private static class ByColor implements Comparator<Item> {
         @Override
         public int compare(Item o1, Item o2) {
-            return o1.color.compareToIgnoreCase(o2.color);
+            return o1.color - o2.color;
         }
     }
 }
