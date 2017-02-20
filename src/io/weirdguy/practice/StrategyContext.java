@@ -6,30 +6,34 @@ import java.util.Comparator;
  * io.weirdguy.practice by laiko in practiceWork
  * Created on 08.02.2017
  */
-public class StrategyContext {
+public class StrategyContext<T> {
 
-    SortStrategy currentSortStrategy;
+    SortStrategy<T> currentSortStrategy;
 
-    public StrategyContext(SortStrategy strategy) {
+    public StrategyContext(SortStrategy<T> strategy) {
         this.currentSortStrategy = strategy;
     }
 
-    public void changeStrategy(SortStrategy strategy) { this.currentSortStrategy = strategy; }
+    public void changeStrategy(SortStrategy<T> strategy) { this.currentSortStrategy = strategy; }
 
-    public void sortAsc(Comparable[] a) {
+    public void sortAsc(Comparable<T>[] a) {
         currentSortStrategy.sortAsc(a);
     }
 
-    public void sortDesc(Comparable[] a) {
+    public void sortDesc(Comparable<T>[] a) {
         currentSortStrategy.sortDesc(a);
     }
 
-    public void sortAsc(Comparable[] a, Comparator comparator) {
+    public void sortAsc(Comparable<T>[] a, Comparator<T> comparator) {
         currentSortStrategy.sortAsc(a, comparator);
     }
 
-    public void sordDesc(Comparable[] a, Comparator comparator) {
+    public void sordDesc(Comparable<T>[] a, Comparator<T> comparator) {
         currentSortStrategy.sortDesc(a, comparator);
+    }
+
+    public String getName() {
+        return currentSortStrategy.getName();
     }
 
 }

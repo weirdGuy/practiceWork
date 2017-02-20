@@ -8,16 +8,18 @@ import java.util.Comparator;
  * io.weirdguy.practice.sorters by laiko in practiceWork
  * Created on 08.02.2017
  */
-public class ShellSort implements SortStrategy {
+public class ShellSort<T> implements SortStrategy<T> {
+
+    private String name = "Shell Sort";
 
     @Override
-    public void sortAsc(Comparable[] a) {
+    public void sortAsc(Comparable<T>[] a) {
         int increment = a.length / 2;
         while (increment > 0) {
             for (int i = increment; i < a.length; i++) {
                 int j = i;
-                Comparable temp = a[i];
-                while (j >= increment && a[j - increment].compareTo(temp) > 0) {
+                Comparable<T> temp = a[i];
+                while (j >= increment && a[j - increment].compareTo((T) temp) > 0) {
                     exch(a, j, j - increment);
                     j = j - increment;
                 }
@@ -32,13 +34,13 @@ public class ShellSort implements SortStrategy {
     }
 
     @Override
-    public void sortDesc(Comparable[] a) {
+    public void sortDesc(Comparable<T>[] a) {
         int increment = a.length / 2;
         while (increment > 0) {
             for (int i = increment; i < a.length; i++) {
                 int j = i;
-                Comparable temp = a[i];
-                while (j >= increment && a[j - increment].compareTo(temp) < 0) {
+                Comparable<T> temp = a[i];
+                while (j >= increment && a[j - increment].compareTo((T) temp) < 0) {
                     exch(a, j, j - increment);
                     j = j - increment;
                 }
@@ -53,12 +55,12 @@ public class ShellSort implements SortStrategy {
     }
 
     @Override
-    public void sortAsc(Comparable[] a, Comparator comparator) {
+    public void sortAsc(Comparable<T>[] a, Comparator<T> comparator) {
         int increment = a.length / 2;
         while (increment > 0) {
             for (int i = increment; i < a.length; i++) {
                 int j = i;
-                while (j >= increment && comparator.compare(a[j - increment], a[i]) > 0) {
+                while (j >= increment && comparator.compare((T) a[j - increment], (T) a[i]) > 0) {
                     exch(a, j, j - increment);
                     j = j - increment;
                 }
@@ -73,12 +75,12 @@ public class ShellSort implements SortStrategy {
     }
 
     @Override
-    public void sortDesc(Comparable[] a, Comparator comparator) {
+    public void sortDesc(Comparable<T>[] a, Comparator<T> comparator) {
         int increment = a.length / 2;
         while (increment > 0) {
             for (int i = increment; i < a.length; i++) {
                 int j = i;
-                while (j >= increment && comparator.compare(a[j - increment], a[i]) < 0) {
+                while (j >= increment && comparator.compare((T) a[j - increment], (T) a[i]) < 0) {
                     exch(a, j, j - increment);
                     j = j - increment;
                 }
@@ -90,5 +92,10 @@ public class ShellSort implements SortStrategy {
                 increment *= (4.0 / 9);
             }
         }
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
     }
 }

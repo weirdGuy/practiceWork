@@ -8,37 +8,44 @@ import java.util.Comparator;
  * io.weirdguy.practice.sorters by laiko in practiceWork
  * Created on 09.02.2017
  */
-public class MergeSort implements SortStrategy{
+public class MergeSort<T> implements SortStrategy<T> {
+
+    private String name = "Merge Sort";
 
     int order = 1;
 
     @Override
-    public void sortAsc(Comparable[] a) {
+    public void sortAsc(Comparable<T>[] a) {
         order = 1;
-        Comparable[] tmp = new Comparable[a.length];
+        Comparable<T>[] tmp = new Comparable[a.length];
         mergeSort(a, tmp,  0,  a.length - 1);
     }
 
     @Override
-    public void sortDesc(Comparable[] a) {
+    public void sortDesc(Comparable<T>[] a) {
         order = -1;
-        Comparable[] tmp = new Comparable[a.length];
+        Comparable<T>[] tmp = new Comparable[a.length];
         mergeSort(a, tmp,  0,  a.length - 1);
     }
 
     @Override
-    public void sortAsc(Comparable[] a, Comparator comparator) {
-        Comparable[] tmp = new Comparable[a.length];
+    public void sortAsc(Comparable<T>[] a, Comparator<T> comparator) {
+        Comparable<T>[] tmp = new Comparable[a.length];
         mergeSort(a, tmp,  0,  a.length - 1, comparator);
     }
 
     @Override
-    public void sortDesc(Comparable[] a, Comparator comparator) {
-        Comparable[] tmp = new Comparable[a.length];
+    public void sortDesc(Comparable<T>[] a, Comparator<T> comparator) {
+        Comparable<T>[] tmp = new Comparable[a.length];
         mergeSort(a, tmp,  0,  a.length - 1, comparator);
     }
 
-    private void mergeSort(Comparable[] a, Comparable[] tmp, int left, int right) {
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    private void mergeSort(Comparable<T>[] a, Comparable<T>[] tmp, int left, int right) {
         if( left < right )
         {
             int center = (left + right) / 2;
@@ -48,7 +55,7 @@ public class MergeSort implements SortStrategy{
         }
     }
 
-    private void mergeSort(Comparable[] a, Comparable[] tmp, int left, int right, Comparator comparator) {
+    private void mergeSort(Comparable<T>[] a, Comparable<T>[] tmp, int left, int right, Comparator<T> comparator) {
         if( left < right )
         {
             int center = (left + right) / 2;
@@ -58,13 +65,13 @@ public class MergeSort implements SortStrategy{
         }
     }
 
-    private void merge(Comparable[] a, Comparable[] tmp, int left, int right, int rightEnd, Comparator comparator) {
+    private void merge(Comparable<T>[] a, Comparable<T>[] tmp, int left, int right, int rightEnd, Comparator<T> comparator) {
         int leftEnd = right - 1;
         int k = left;
         int num = rightEnd - left + 1;
 
         while(left <= leftEnd && right <= rightEnd)
-            if(comparator.compare(a[left], a[right]) <= 0)
+            if(comparator.compare((T) a[left], (T) a[right]) <= 0)
                 tmp[k++] = a[left++];
             else
                 tmp[k++] = a[right++];
@@ -79,13 +86,13 @@ public class MergeSort implements SortStrategy{
             a[rightEnd] = tmp[rightEnd];
     }
 
-    private void merge(Comparable[] a, Comparable[] tmp, int left, int right, int rightEnd) {
+    private void merge(Comparable<T>[] a, Comparable<T>[] tmp, int left, int right, int rightEnd) {
         int leftEnd = right - 1;
         int k = left;
         int num = rightEnd - left + 1;
 
         while(left <= leftEnd && right <= rightEnd)
-            if(a[left].compareTo(a[right]) * order <= 0)
+            if(a[left].compareTo((T) a[right]) * order <= 0)
                 tmp[k++] = a[left++];
             else
                 tmp[k++] = a[right++];

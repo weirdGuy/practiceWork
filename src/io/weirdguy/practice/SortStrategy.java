@@ -6,18 +6,20 @@ import java.util.Comparator;
  * io.weirdguy.practice by laiko in practiceWork
  * Created on 08.02.2017
  */
-public interface SortStrategy {
+public interface SortStrategy<T> {
 
-    void sortAsc(Comparable[] a);
+    void sortAsc(Comparable<T>[] a);
 
-    void sortDesc(Comparable[] a);
+    void sortDesc(Comparable<T>[] a);
 
-    void sortAsc(Comparable[] a, Comparator comparator);
+    void sortAsc(Comparable<T>[] a, Comparator<T> comparator);
 
-    void sortDesc(Comparable[] a, Comparator comparator);
+    void sortDesc(Comparable<T>[] a, Comparator<T> comparator);
 
-    default void exch(Comparable[] a, int i, int j) {
-        Comparable swap = a[i];
+    String getName();
+
+    default void exch(Comparable<T>[] a, int i, int j) {
+        Comparable<T> swap = a[i];
         a[i] = a[j];
         a[j] = swap;
     }

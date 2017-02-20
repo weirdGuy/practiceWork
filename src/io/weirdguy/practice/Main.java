@@ -2,6 +2,9 @@ package io.weirdguy.practice;
 
 import io.weirdguy.practice.sorters.*;
 
+import princeton.lib.*;
+
+import java.io.File;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -11,27 +14,29 @@ public class Main {
 
         Item[] items = new Item[10];
 
-        SortStrategy[] sorters = new SortStrategy[]{new CombSort(), new HeapSort(),
-                new InsertionSort(), new MergeSort(), new QuickSort(), new SelectionSort(), new ShellSort()};
+        SortStrategy[] sorters = new SortStrategy[]{new CombSort<Integer>(), new HeapSort<Integer>(),
+                new InsertionSort<Integer>(), new MergeSort<Integer>(), new QuickSort<Integer>(), new SelectionSort<Integer>(), new ShellSort<Integer>()};
 
-        Random rn = new Random();
-        int n = 100 - 1 + 1;
+        File[] files = new File[]{new File("input1024.txt"), new File("input2048.txt"), new File("input4096.txt"),
+                new File("input8192.txt"), new File("input16384.txt"), new File("input32768.txt")};
 
-        for(int i = 0; i < items.length; i++) {
-            items[i] = new Item(rn.nextInt() % n, rn.nextInt() % n, "RGB" + rn.nextInt() % n + "6" + i);
-        }
-        StrategyContext sorter = new StrategyContext(new BubbleSort());
+        StrategyContext<Integer> sorter = new StrategyContext<>(new BubbleSort<>());
 
-        Item[] copy = Arrays.copyOf(items, items.length);
+        for(int i = 0; i < sorters.length; i++) {
+            for(int j = 0; j < files.length; j++) {
+                int input[] = new princeton.lib.In(files[j].getName()).readAllInts();
+                Integer fileItems[] = new Integer[input.length];
 
-        log(Arrays.toString(items));
+                for (int k = 0; k < input.length; k++) {
+                    fileItems[k] = input[k];
+                }
 
-        for (SortStrategy s:
-             sorters) {
-            sorter.changeStrategy(s);
-            sorter.sortAsc(items);
-            log(Arrays.toString(items));
-            items = Arrays.copyOf(copy, copy.length);
+                Stopwatch stopwatch = new Stopwatch();
+                sorter.sortDesc(fileItems);
+                log("Strategy: "+ sorter.getName() +"; File: " + files[j].getName() +
+                        "; Sorting completed in: " + stopwatch.elapsedTime());
+            }
+            sorter.changeStrategy(sorters[i]);
         }
 
     }

@@ -8,12 +8,14 @@ import java.util.Comparator;
  * io.weirdguy.practice.sorters by laiko in practiceWork
  * Created on 08.02.2017
  */
-public class HeapSort implements SortStrategy {
+public class HeapSort<T> implements SortStrategy<T> {
+
+    private String name = "Heap Sort";
 
     private int order = 1;
 
     @Override
-    public void sortAsc(Comparable[] a) {
+    public void sortAsc(Comparable<T>[] a) {
         order = 1;
         int n = a.length;
         heapMake(a);
@@ -25,7 +27,7 @@ public class HeapSort implements SortStrategy {
     }
 
     @Override
-    public void sortDesc(Comparable[] a) {
+    public void sortDesc(Comparable<T>[] a) {
         order = -1;
         int n = a.length;
         heapMake(a);
@@ -37,7 +39,7 @@ public class HeapSort implements SortStrategy {
     }
 
     @Override
-    public void sortAsc(Comparable[] a, Comparator comparator) {
+    public void sortAsc(Comparable<T>[] a, Comparator<T> comparator) {
         order = 1;
         int n = a.length;
         heapMake(a, comparator);
@@ -49,7 +51,7 @@ public class HeapSort implements SortStrategy {
     }
 
     @Override
-    public void sortDesc(Comparable[] a, Comparator comparator) {
+    public void sortDesc(Comparable<T>[] a, Comparator<T> comparator) {
         order = -1;
         int n = a.length;
         heapMake(a, comparator);
@@ -60,27 +62,32 @@ public class HeapSort implements SortStrategy {
         }
     }
 
-    private void heapMake(Comparable[] a) {
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    private void heapMake(Comparable<T>[] a) {
         int n = a.length;
         for(int i = n - 1; i >= 0; i--) {
             heapify(a, n, i);
         }
     }
 
-    private void heapMake(Comparable[] a, Comparator comparator) {
+    private void heapMake(Comparable<T>[] a, Comparator<T> comparator) {
         int n = a.length;
         for(int i = n - 1; i >= 0; i--) {
             heapify(a, n, i, comparator);
         }
     }
 
-    private void heapify(Comparable[] a, int size, int pos) {
+    private void heapify(Comparable<T>[] a, int size, int pos) {
         while (2 * pos + 1 < size) {
             int t = 2 * pos + 1;
-            if (2 * pos + 2 < size && a[2 * pos + 1].compareTo(a[2 * pos + 2]) * order > 0) {
+            if (2 * pos + 2 < size && a[2 * pos + 1].compareTo((T) a[2 * pos + 2]) * order > 0) {
                 t = 2 * pos + 2;
             }
-            if ( a[pos].compareTo(a[t]) * order > 0) {
+            if ( a[pos].compareTo((T) a[t]) * order > 0) {
                 exch(a, pos, t);
                 pos = t;
             } else {
@@ -89,13 +96,13 @@ public class HeapSort implements SortStrategy {
         }
     }
 
-    private void heapify(Comparable[] a, int size, int pos, Comparator comparator) {
+    private void heapify(Comparable<T>[] a, int size, int pos, Comparator<T> comparator) {
         while (2 * pos + 1 < size) {
             int t = 2 * pos + 1;
-            if (2 * pos + 2 < size && comparator.compare(a[2 * pos + 1], a[2 * pos + 2]) * order < 0) {
+            if (2 * pos + 2 < size && comparator.compare((T) a[2 * pos + 1], (T) a[2 * pos + 2]) * order < 0) {
                 t = 2 * pos + 2;
             }
-            if (comparator.compare(a[pos], a[t]) < 0) {
+            if (comparator.compare((T) a[pos], (T) a[t]) < 0) {
                 exch(a, pos, t);
                 pos = t;
             } else {
