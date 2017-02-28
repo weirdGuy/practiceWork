@@ -5,8 +5,6 @@ import io.weirdguy.practice.sorters.*;
 import princeton.lib.*;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.Random;
 
 public class Main {
 
@@ -20,7 +18,9 @@ public class Main {
         File[] files = new File[]{new File("input1024.txt"), new File("input2048.txt"), new File("input4096.txt"),
                 new File("input8192.txt"), new File("input16384.txt"), new File("input32768.txt")};
 
-        StrategyContext<Integer> sorter = new StrategyContext<>(new BubbleSort<>());
+        StrategyContext<Integer> sorter = new StrategyContext<>();
+
+        sorter.setCurrentSortStrategy(new BubbleSort());
 
         for(int i = 0; i < sorters.length; i++) {
             for(int j = 0; j < files.length; j++) {
@@ -36,7 +36,7 @@ public class Main {
                 log("Strategy: "+ sorter.getName() +"; File: " + files[j].getName() +
                         "; Sorting completed in: " + stopwatch.elapsedTime());
             }
-            sorter.changeStrategy(sorters[i]);
+            sorter.setCurrentSortStrategy(sorters[i]);
         }
 
     }

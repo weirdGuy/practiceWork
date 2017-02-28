@@ -36,6 +36,7 @@ public class MergeSort<T> implements SortStrategy<T> {
 
     @Override
     public void sortDesc(Comparable<T>[] a, Comparator<T> comparator) {
+        order = -1;
         Comparable<T>[] tmp = new Comparable[a.length];
         mergeSort(a, tmp,  0,  a.length - 1, comparator);
     }
@@ -71,7 +72,7 @@ public class MergeSort<T> implements SortStrategy<T> {
         int num = rightEnd - left + 1;
 
         while(left <= leftEnd && right <= rightEnd)
-            if(comparator.compare((T) a[left], (T) a[right]) <= 0)
+            if(comparator.compare((T) a[left], (T) a[right]) * order <= 0)
                 tmp[k++] = a[left++];
             else
                 tmp[k++] = a[right++];

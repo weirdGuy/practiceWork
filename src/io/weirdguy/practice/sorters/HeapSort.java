@@ -84,10 +84,10 @@ public class HeapSort<T> implements SortStrategy<T> {
     private void heapify(Comparable<T>[] a, int size, int pos) {
         while (2 * pos + 1 < size) {
             int t = 2 * pos + 1;
-            if (2 * pos + 2 < size && a[2 * pos + 1].compareTo((T) a[2 * pos + 2]) * order > 0) {
+            if (2 * pos + 2 < size && a[2 * pos + 1].compareTo((T) a[2 * pos + 2]) * order < 0) {
                 t = 2 * pos + 2;
             }
-            if ( a[pos].compareTo((T) a[t]) * order > 0) {
+            if ( a[pos].compareTo((T) a[t]) * order < 0) {
                 exch(a, pos, t);
                 pos = t;
             } else {
@@ -102,7 +102,7 @@ public class HeapSort<T> implements SortStrategy<T> {
             if (2 * pos + 2 < size && comparator.compare((T) a[2 * pos + 1], (T) a[2 * pos + 2]) * order < 0) {
                 t = 2 * pos + 2;
             }
-            if (comparator.compare((T) a[pos], (T) a[t]) < 0) {
+            if (comparator.compare((T) a[pos], (T) a[t]) * order < 0) {
                 exch(a, pos, t);
                 pos = t;
             } else {

@@ -10,11 +10,9 @@ public class StrategyContext<T> {
 
     SortStrategy<T> currentSortStrategy;
 
-    public StrategyContext(SortStrategy<T> strategy) {
+    public void setCurrentSortStrategy(SortStrategy<T> strategy) {
         this.currentSortStrategy = strategy;
     }
-
-    public void changeStrategy(SortStrategy<T> strategy) { this.currentSortStrategy = strategy; }
 
     public void sortAsc(Comparable<T>[] a) {
         currentSortStrategy.sortAsc(a);
@@ -28,7 +26,7 @@ public class StrategyContext<T> {
         currentSortStrategy.sortAsc(a, comparator);
     }
 
-    public void sordDesc(Comparable<T>[] a, Comparator<T> comparator) {
+    public void sortDesc(Comparable<T>[] a, Comparator<T> comparator) {
         currentSortStrategy.sortDesc(a, comparator);
     }
 
