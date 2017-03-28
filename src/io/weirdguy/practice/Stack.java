@@ -1,5 +1,6 @@
 package io.weirdguy.practice;
 
+import java.util.EmptyStackException;
 import java.util.NoSuchElementException;
 
 /**
@@ -28,7 +29,7 @@ public class Stack<T extends Comparable<T>> {
 
     public T pop() {
         if(size == 0)
-            throw new NoSuchElementException();
+            throw new EmptyStackException();
         else {
             T el = top.data;
             top = top.next;
@@ -38,6 +39,7 @@ public class Stack<T extends Comparable<T>> {
     }
 
     public T peek() {
+        if(size == 0) throw new EmptyStackException();
         return top.data;
     }
 

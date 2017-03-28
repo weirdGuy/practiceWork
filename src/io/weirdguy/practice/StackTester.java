@@ -7,9 +7,20 @@ package io.weirdguy.practice;
 public class StackTester {
 
     private static Stack<Integer> stack;
+    private static Stack<Integer> excpStack;
 
     public static void main(String[] args) {
         stack = new Stack<Integer>();
+        excpStack = new Stack<Integer>();
+
+        log("------------Tests With Exceptions------------");
+        log("------------Pop Exception------------");
+        popWithException();
+        log("------------Peek Exception------------");
+        peekWithException();
+        log("------------Exceptions Done------------");
+
+        log(" ");
 
         log("------------Tests------------");
         pushTest();
@@ -53,6 +64,22 @@ public class StackTester {
         log(stack.search(new Integer(8)));
         log(stack.search(new Integer(63)));
         log(stack.stackToString());
+    }
+
+    public static void popWithException() {
+        try {
+            excpStack.pop();
+        } catch (Exception e) {
+            log(e.getClass().getSimpleName());
+        }
+    }
+
+    public static void peekWithException() {
+        try {
+            excpStack.peek();
+        } catch (Exception e) {
+            log(e.getClass().getSimpleName());
+        }
     }
 
     private static void log(Object obj) {

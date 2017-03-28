@@ -7,9 +7,24 @@ package io.weirdguy.practice;
 public class QueueTester {
 
     static Queue<Integer> queue;
+    static Queue<Integer> noNullQueue;
 
     public static void main(String[] args) {
         queue = new Queue<Integer>(-1, true);
+        noNullQueue = new Queue<>(10, false);
+
+        log("----------Tests With Exceptions----------");
+        addWithException();
+        noNullQueue = new Queue<>(10, false);
+        log("----------Element Exception----------");
+        elementWithException();
+        log("----------Remove Exception----------");
+        removeWithException();
+        log("----------Offer Exception----------");
+        offerWithException();
+        log("----------Exceptions Done----------");
+
+        log(" ");
 
         log("----------Tests----------");
         additionTester();
@@ -82,6 +97,47 @@ public class QueueTester {
         log(queue.search(new Integer(600)));
 
         log(queue.toString());
+    }
+
+    public static void addWithException() {
+        try {
+            noNullQueue.add(null);
+        } catch (Exception e) {
+            log(e.getClass().getSimpleName());
+        }
+        log(noNullQueue.toString());
+        for(int i = 0; i < 10; i++) noNullQueue.add(new Integer(i));
+
+        try {
+            noNullQueue.add(new Integer(11));
+        } catch (Exception e) {
+            log(e.getClass().getSimpleName());
+        }
+
+    }
+
+    public static void elementWithException() {
+        try {
+            noNullQueue.element();
+        } catch (Exception e) {
+            log(e.getClass().getSimpleName());
+        }
+    }
+
+    public static void removeWithException() {
+        try {
+            noNullQueue.remove();
+        } catch (Exception e) {
+            log(e.getClass().getSimpleName());
+        }
+    }
+
+    public static void offerWithException() {
+        try {
+            noNullQueue.offer(null);
+        } catch (Exception e) {
+            log(e.getClass().getSimpleName());
+        }
     }
 
     private static void log(Object obj) {
