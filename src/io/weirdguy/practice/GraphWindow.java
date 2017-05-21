@@ -22,8 +22,6 @@ public class GraphWindow extends JFrame {
     private double radius = 1;
     private double range = 6.3;
     private double step = 0.05;
-    private double x = 0;
-    private double y = 0;
     private double size;
     private JButton button;
     private JPanel panel;
@@ -62,7 +60,6 @@ public class GraphWindow extends JFrame {
 
     public void paint(Graphics g) {
         button.repaint();
-        resetVal();
         g.setColor(Color.white);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
         Graphics2D graphics = (Graphics2D) g;
@@ -72,9 +69,7 @@ public class GraphWindow extends JFrame {
         drawMarkup(g);
 
         for(double i = step; i <= range; i = i + step) {
-            x = radius * Math.pow(Math.cos(i), 3);
-            y = radius * Math.pow(Math.sin(i), 3);
-            graphics.draw(new Line2D.Double((this.getWidth() / 2) + radius * Math.pow(Math.cos(i - step), 3) * size, (this.getHeight() / 2) + radius * Math.pow(Math.sin(i - step), 3) * size * (-1), (this.getWidth() / 2) + x * size, (this.getHeight() / 2) + y * size * (-1)));
+            graphics.draw(new Line2D.Double((this.getWidth() / 2) + radius * Math.pow(Math.cos(i - step), 3) * size, (this.getHeight() / 2) + radius * Math.pow(Math.sin(i - step), 3) * size * (-1), (this.getWidth() / 2) + radius * Math.pow(Math.cos(i), 3) * size, (this.getHeight() / 2) + radius * Math.pow(Math.sin(i), 3) * size * (-1)));
         }
     }
 
@@ -98,7 +93,7 @@ public class GraphWindow extends JFrame {
     private String getFilePath() {
         JFileChooser chooser = new JFileChooser();
         chooser.setCurrentDirectory(new java.io.File("."));
-        chooser.setDialogTitle("title");
+        chooser.setDialogTitle("Save graph");
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         FileNameExtensionFilter filter = new FileNameExtensionFilter("JPEG images", "jpeg");
         chooser.setFileFilter(filter);
@@ -108,11 +103,6 @@ public class GraphWindow extends JFrame {
             return chooser.getSelectedFile().getPath() + ".jpeg";
 
         return chooser.getSelectedFile().getPath();
-    }
-
-    private void resetVal() {
-        this.x = 0;
-        this.y = 0;
     }
 
     private void drawMarkup(Graphics g){
@@ -128,8 +118,8 @@ public class GraphWindow extends JFrame {
             g.drawLine(this.getWidth() / 2 - 10, (int) ((this.getHeight() / 2) - (i * size)), this.getWidth() / 2 + 10, (int) ((this.getHeight() / 2) - (i * size)));
             g.drawLine(this.getWidth() / 2 - 10, (int) ((this.getHeight() / 2) + (i * size)), this.getWidth() / 2 + 10, (int) ((this.getHeight() / 2) + (i * size)));
 
-            g.drawString("" + i * (-1), ((this.getWidth() / 2) + 20),(int) ((this.getHeight() / 2)  - (i * size)));
-            g.drawString("" + i, ((this.getWidth() / 2) + 20),(int) ((this.getHeight() / 2)  + (i * size)));
+            g.drawString("" + i, ((this.getWidth() / 2) + 20),(int) ((this.getHeight() / 2)  - (i * size)));
+            g.drawString("" + i * (-1), ((this.getWidth() / 2) + 20),(int) ((this.getHeight() / 2)  + (i * size)));
             g.drawString("" + i * (-1), (int) ((this.getWidth() / 2) - (i * size)),this.getHeight() / 2 + 20);
             g.drawString("" + i, (int) ((this.getWidth() / 2) + (i * size)),this.getHeight() / 2 + 20);
         }
