@@ -26,9 +26,10 @@ public class GraphWindow extends JFrame {
     private JButton button;
     private JPanel panel;
 
-    public GraphWindow(double range, double step) {
+    public GraphWindow(double range, double step, double radius) {
         super("My Graphics");
         this.size = 50;
+        this.radius = radius;
         this.range = range;
         this.step = step;
         setSize(600, 600);
